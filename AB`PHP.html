@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Your Resume</title>
+	<style type="text/css">
+		#header{
+			background-color: #514c40;
+			color: #FFF;
+			padding-top: 20px;
+			padding-bottom: 40px;
+		}
+		.titel{
+			color: #e5b03d;
+		}
+		.head1{
+			color: #e5b03d;
+			font-size: 12px;
+		}
+		.head{
+			font-size: 14px;
+		}
+
+		#main_content{
+			background-color:#d3cec2;
+			padding: 20px;
+		}
+		#project{
+			padding: 20px;
+		}
+		#education {
+			background-color: #d3cec2;
+			padding: 20px;
+		}
+		.sub_head{
+			color: #808080;
+		}
+		.sub_head1,.edu3{
+			color: #597bd1;
+		}
+		.footer{
+			background-color: #e5b03d;
+			color: #FFF;
+		}
+		.footer1{
+			text-align: center;
+			text-align: center;
+		}
+		.footer2{
+			background-color: #514c40;
+			color: #FFF;
+		}
+		
+	</style>
+	<link rel="stylesheet" href="bootstrap.min.css">	
+</head>
+<body>
+<?php  
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'forsk_lab');
+
+$conn = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_NAME);
+
+// fatching the result from the bio table
+
+$result  = "SELECT * FROM forsk_lab.biotable";
+$run = mysqli_query($conn,$result);
+if (mysqli_num_rows($run)>0) {
+	while($row = mysqli_fetch_assoc($run)) {
+		// basic bio variables
+		$fullname= $row['FULLNAME'];
+		$role = $row['ROLE'];
+		$contact = $row['MOBILE_NO'];
+		$emails = $row['EMAIL'];
+		$git_id = $row['GIT__ADD'];
+		$twitter_id=$row['TWITTER_ADD'];
+		$locat = $row['CURRENT_LOCATION'];
+		$skill = $row['SKILLS'];
+		$filepath =$row["IMAGE"];
+	}
+}
+// fetching the result from work table
+
+$result2 = "SELECT * FROM forsk_lab.work";
+$run2 = mysqli_query($conn,$result2);
+if (mysqli_num_rows($run2)>0) {
+	while ($row2 = mysqli_fetch_assoc($run2)) {
+		$job_titles = $row2['JOB_TITLE'];
+		$job_location =  $row2['LOCATION'];
+		$job_date =  $row2['JOB_DATE'];
+		$job_descript = $row2['DESCRIPTION'] ;
+	}
+}
+// fetching the result from project table
+
+$result3 = "SELECT * FROM forsk_lab.project";
+$run3 = mysqli_query($conn,$result3);
+if (mysqli_num_rows($run3)>0) {
+	while ($row3 = mysqli_fetch_assoc($run3)) {
+		$project_name =  $row3['PROJECT_NAME'];
+		$project_date =  $row3['PROJECT_DATE'];
+		$project_descript =  $row3['PROJECT_DES'];
+	}
+}
+// fetching the result from school table
+
+$result4 = "SELECT * FROM forsk_lab.school";
+$run4 = mysqli_query($conn,$result4);
+if (mysqli_num_rows($run4)>0) {
+	while ($row4 = mysqli_fetch_assoc($run4)) {
+		$school_name = $row4['SCHOOL_NAME'];
+		$school_locate=$row4['SCHOOL_LOCATION'];
+		$school_degree = $row4['DEGREE'];
+		$school_majors = $row4['MAJORS'];
+		$school_dates = $row4['GRADUATION_DATE'];
+		$online_course = $row4['ONLINE_COURSE'];
+		$organization = $row4['ORGANIZATION'];
+		$online_date = $row4['DATE_FINISHED'];
+	}
+}
+?>
+<!-- ============================================================================================
+=========================================== bio table content ===================================
+================================================================================================= -->
+<section id="header">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h1 class="titel"><?php echo $fullname?></h1>			
+			</div>
+			<div class="col-sm-2">
+				<h6 style="position: relative;top: 25px;"><?php  echo $role?></h6>
+			</div>
+			<div class="col-sm-4 offset"></div>
+		</div>
+
+		<hr style="background-color: #FFF;">
+
+		<div class="row">
+			<div class="col-sm-1 offset"></div>
+			<div class="col-sm-2">
+				<span class="head1">Mobile No:</span><span class="head"><?php echo $contact ?></span>
+			</div>
+			<div class="col-sm-2">
+				<span class="head1">Email:</span><span class="head"><?php echo $emails ?></span>
+			</div>
+			<div class="col-sm-1 offset"></div>
+			<div class="col-sm-2">
+				<span class="head1">github:</span><span class="head"><?php echo $git_id ?></span>
+			</div>
+			<div class="col-sm-2">
+				<span class="head1">twitter:</span><span class="head"><?php echo $twitter_id  ?></span>
+			</div>
+			<div class="col-sm-2">
+				<span class="head1">Location:</span><span class="head"><?php echo $locat?></span>
+			</div>
+		</div><br>
+		<div class="row">
+			<div class="col-sm-2">
+				<img src="<?php echo($filepath)?>" alt="my pic" height=150 width=150 >
+			</div>
+			<div class="col-sm-5">
+				<h4 class="head2">Skills:</h4><span class="head"><?php echo $skill ?></span>
+			</div>
+			<div class="col-sm-5 offset"></div>
+		</div>	
+	</div>
+</section>
+<!-- ============================================================================================
+=========================================== work table content ===================================
+================================================================================================= -->
+<section id="main_content">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="sub_head">Work Experience:</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<p class="sub_head1"><?php echo $job_titles ?></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<p class="texture"><?php echo $job_date ?></p>					
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<i class="texture2"><?php echo $job_descript ?></i>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- ============================================================================================
+=========================================== bio table content ===================================
+================================================================================================= -->
+<section id="project">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="sub_head">Project:</h2>	
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<p class="sub_head1"><?php echo $project_name ?></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<i class="texture"><?php echo $project_date ?></i>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<p class="texture2"><?php echo $project_descript ?></p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="education">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="sub_head">Education:</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<p class="sub_head1"><?php echo $school_name ?></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<i class="texture"><?php echo $school_dates ?></i>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<p class="texture2"><b>Majors:</b> <?php echo $school_majors ?></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<h4 class="edu2">Online Course:</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<p class="edu3"><?php echo $online_course ?></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<p class="edu4"><?php echo $online_date ?></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<i class="texture2"><?php echo $organization ?></i>
+			</div>
+		</div>
+	</div>
+</section>
+<section id="mymap">
+	<div class="container">
+		<div class="col-lg-12">
+			<h2 class="sub_head">Where I lived and Worked</h2>
+		</div>
+		<div class="map">
+			<iframe src="https://maps.google.com/maps?q=raila%20bhilwara%20raj%20&t=&z=13&ie=UTF8&iwloc=&output=embed"
+				allowfullscreen width="100%" height="400">
+			</iframe>
+		</div>
+	</div>
+</section>
+<section class="footer">
+	<div class="container-fluid">
+		<div class="row footer1">
+			<div class="col-sm-5 offset"></div>
+			<div class="col-sm-2">
+				<h4>Let's Connect</h4>				
+			</div>
+			<div class="col-sm-5 offset"></div>
+		</div>
+		<div class="row footer2">
+			<div class="col-sm-1 offset"></div>
+			<div class="col-sm-2">
+				<span class="head1">Mobile No:</span><span class="head"><?php echo $contact ?></span>
+			</div>
+			<div class="col-sm-2">
+				<span class="head1">Email:</span><span class="head"><?php echo $emails ?></span>
+			</div>
+			<div class="col-sm-1 offset"></div>
+			<div class="col-sm-2">
+				<span class="head1">github:</span><span class="head"><?php echo $git_id ?></span>
+			</div>
+			<div class="col-sm-2">
+				<span class="head1">twitter:</span><span class="head"><?php echo $twitter_id  ?></span>
+			</div>
+			<div class="col-sm-2">
+				<span class="head1">Location:</span><span class="head"><?php echo $locat?></span>
+			</div>
+		</div>
+	</div>
+</section>
+<script type="text/javascript">
+	
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+<script src="bootstrap.min.js"></script>
+</body>
+</html>
